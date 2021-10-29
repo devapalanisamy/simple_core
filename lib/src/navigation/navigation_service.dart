@@ -22,7 +22,8 @@ class NavigationService implements INavigationService {
 
   @override
   void popUntil(String routeName, {dynamic arguments}) {
-    navigatorKey.currentState!.popUntil((Route<void> r) => r.isFirst);
+    navigatorKey.currentState!
+        .popUntil((Route<void> r) => r.settings.name == routeName);
   }
 
   final GlobalKey<NavigatorState> _navigatorKey = GlobalKey<NavigatorState>();
