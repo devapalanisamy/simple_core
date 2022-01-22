@@ -8,13 +8,13 @@ environment:
   flutter: ">=1.17.0"
 
 dependencies:
-  connectivity_plus: ^1.1.0
+  connectivity_plus: ^2.2.0
   flutter:
     sdk: flutter
   flutter_localizations:
     sdk: flutter
-  flutter_riverpod: ^0.14.0+3
-  flutter_secure_storage: ^4.2.1
+  flutter_riverpod: ^1.0.3
+  flutter_secure_storage: ^5.0.2
   get: ^4.3.8
   get_it: ^7.2.0
   hive_flutter: ^1.1.0

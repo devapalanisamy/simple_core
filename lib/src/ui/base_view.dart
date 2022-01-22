@@ -26,7 +26,7 @@ class _BaseViewState<T extends StateNotifier<S>, S>
     _viewModel = diContainer<T>();
     widget.setupViewModel(_viewModel);
     _myNotifierProvider = StateNotifierProvider.autoDispose<T, S>(
-        (AutoDisposeProviderReference ref) {
+        (AutoDisposeStateNotifierProviderRef ref) {
       return _viewModel;
     });
     super.initState();
@@ -38,11 +38,11 @@ class _BaseViewState<T extends StateNotifier<S>, S>
       key: const Key('BaseView_Consumer'),
       builder: (
         BuildContext context,
-        T Function<T>(ProviderBase<Object?, T>) watch,
+        WidgetRef widgetRef,
         Widget? child,
       ) {
-        final S state = watch<S>(_myNotifierProvider);
-        final T viewmodel = watch(_myNotifierProvider.notifier);
+        final S state = widgetRef.watch<S>(_myNotifierProvider);
+        final T viewmodel = widgetRef.watch(_myNotifierProvider.notifier);
         return widget.builder(context, viewmodel, state);
       },
     );
