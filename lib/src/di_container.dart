@@ -20,10 +20,7 @@ void registerEssentialServices() {
     () => RestClient(diContainer<Client>()),
   );
   diContainer.registerLazySingleton<IStorageService>(() => StorageService());
-  diContainer
-      .registerLazySingleton<INavigationService>(() => NavigationService());
-  diContainer
-      .registerLazySingleton<ILocalizationService>(() => LocalizationService());
-  diContainer.registerLazySingleton<IConnectivityService>(
-      () => ConnectivityService(diContainer<IDialogService>()));
+
+  diContainer.registerLazySingleton<ILocalizationService>(() => LocalizationService());
+  diContainer.registerLazySingleton<IConnectivityService>(() => ConnectivityService(diContainer<IDialogService>()));
 }

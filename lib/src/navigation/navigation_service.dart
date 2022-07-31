@@ -2,32 +2,30 @@ import 'package:flutter/material.dart';
 import 'package:simple_core/src/navigation/i_navigation_service.dart';
 
 class NavigationService implements INavigationService {
+  final Map<String, GlobalKey<NavigatorState>> navigatorMap;
+
+  NavigationService(this.navigatorMap);
+
   @override
-  Future<T?> pushNamed<T, S>(String routeName, {S? arguments}) {
-    return navigatorKey.currentState!
-        .pushNamed(routeName, arguments: arguments);
+  Future<T?> pushNamed<T, S>({required String routeName, String navigationFlow = 'normal', S? arguments}) {
+    return navigatorMap[navigationFlow]!.currentState!.pushNamed(routeName, arguments: arguments);
   }
 
   @override
-  Future<T?> pushNamedAndRemoveUntil<T, S>(String routeName, {S? arguments}) {
-    return navigatorKey.currentState!.pushNamedAndRemoveUntil(
-        routeName, (Route<dynamic> route) => false,
-        arguments: arguments);
+  Future<T?> pushNamedAndRemoveUntil<T, S>(
+      {required String routeName, String navigationFlow = 'normal', S? arguments}) {
+    return navigatorMap[navigationFlow]!
+        .currentState!
+        .pushNamedAndRemoveUntil(routeName, (Route<dynamic> route) => false, arguments: arguments);
   }
 
   @override
-  void pop<T>({T? arguments}) {
-    return navigatorKey.currentState!.pop(arguments);
+  void pop<T>({String navigationFlow = 'normal', T? arguments}) {
+    return navigatorMap[navigationFlow]!.currentState!.pop(arguments);
   }
 
   @override
-  void popUntil(String routeName, {dynamic arguments}) {
-    navigatorKey.currentState!
-        .popUntil((Route<void> r) => r.settings.name == routeName);
+  void popUntil({required String routeName, String navigationFlow = 'normal', dynamic arguments}) {
+    navigatorMap[navigationFlow]!.currentState!.popUntil((Route<void> r) => r.settings.name == routeName);
   }
-
-  final GlobalKey<NavigatorState> _navigatorKey = GlobalKey<NavigatorState>();
-
-  @override
-  GlobalKey<NavigatorState> get navigatorKey => _navigatorKey;
 }
