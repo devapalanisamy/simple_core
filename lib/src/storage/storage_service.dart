@@ -2,7 +2,7 @@ import 'dart:convert';
 
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:hive_flutter/hive_flutter.dart';
-import 'package:simple_core/simple_core.dart';
+import 'package:core/core.dart';
 
 class StorageService extends IStorageService {
   @override

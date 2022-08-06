@@ -1,7 +1,7 @@
 import 'dart:io';
 
 import 'package:http/http.dart';
-import 'package:simple_core/src/network/i_rest_client.dart';
+import 'package:core/src/network/i_rest_client.dart';
 
 class RestClient extends IRestClient {
   RestClient(
@@ -12,8 +12,7 @@ class RestClient extends IRestClient {
   final Duration timeoutDuration = const Duration(seconds: 60);
 
   @override
-  Future<Response> delete(
-      {required String baseUrl, required String path, String? token}) async {
+  Future<Response> delete({required String baseUrl, required String path, String? token}) async {
     try {
       final Map<String, String> header = <String, String>{
         'Content-type': 'application/json',
@@ -38,10 +37,7 @@ class RestClient extends IRestClient {
 
   @override
   Future<Response> get(
-      {required String baseUrl,
-      required String path,
-      Map<String, String>? parameters,
-      String? token}) async {
+      {required String baseUrl, required String path, Map<String, String>? parameters, String? token}) async {
     try {
       final Map<String, String> header = <String, String>{
         'Content-type': 'application/json',
@@ -66,10 +62,7 @@ class RestClient extends IRestClient {
 
   @override
   Future<Response> patch(
-      {required String baseUrl,
-      required String path,
-      required String request,
-      String? token}) async {
+      {required String baseUrl, required String path, required String request, String? token}) async {
     try {
       final Map<String, String> header = <String, String>{
         'Content-type': 'application/json',
@@ -94,11 +87,7 @@ class RestClient extends IRestClient {
   }
 
   @override
-  Future<Response> post(
-      {required String baseUrl,
-      required String path,
-      required String request,
-      String? token}) async {
+  Future<Response> post({required String baseUrl, required String path, required String request, String? token}) async {
     try {
       final Map<String, String> header = <String, String>{
         'Content-type': 'application/json',
@@ -123,11 +112,7 @@ class RestClient extends IRestClient {
   }
 
   @override
-  Future<Response> put(
-      {required String baseUrl,
-      required String path,
-      required String request,
-      String? token}) async {
+  Future<Response> put({required String baseUrl, required String path, required String request, String? token}) async {
     try {
       final Map<String, String> header = <String, String>{
         'Content-type': 'application/json',

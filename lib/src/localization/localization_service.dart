@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
-import 'package:simple_core/src/localization/i_localization_service.dart';
-import 'package:simple_core/src/localization/localizer.dart';
+import 'package:core/src/localization/i_localization_service.dart';
+import 'package:core/src/localization/localizer.dart';
 
 class LocalizationService implements ILocalizationService {
   late BuildContext context;

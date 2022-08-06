@@ -1,8 +1,8 @@
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:get/get.dart';
 import 'package:flutter/material.dart';
-import 'package:simple_core/src/connectivity/i_connectivity_service.dart';
-import 'package:simple_core/src/dialog/i_dialog_service.dart';
+import 'package:core/src/connectivity/i_connectivity_service.dart';
+import 'package:core/src/dialog/i_dialog_service.dart';
 //import 'package:url_launcher/url_launcher.dart';
 
 class ConnectivityService implements IConnectivityService {
@@ -11,9 +11,7 @@ class ConnectivityService implements IConnectivityService {
   final IDialogService _dialogService;
   @override
   Future<void> startConnectivityService(String bottomSheetType) async {
-    Connectivity()
-        .onConnectivityChanged
-        .listen((ConnectivityResult event) async {
+    Connectivity().onConnectivityChanged.listen((ConnectivityResult event) async {
       //final bool isInternetAvailable = await canLaunch('https://www.google.com/');
       if (event == ConnectivityResult.none) {
         await _dialogService.showBottomSheet(

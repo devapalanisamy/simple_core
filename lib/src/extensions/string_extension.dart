@@ -1,4 +1,4 @@
-import 'package:simple_core/src/navigation/routing_data.dart';
+import 'package:core/src/navigation/routing_data.dart';
 
 extension StringExtension on String {
   RoutingData get getRoutingData {

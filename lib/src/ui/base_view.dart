@@ -1,23 +1,24 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:simple_core/src/di_container.dart';
+import 'package:core/src/di_container.dart';
 
 class BaseView<T extends StateNotifier<S>, S> extends StatefulWidget {
   const BaseView({
     Key? key,
     required this.setupViewModel,
     required this.builder,
+    this.dispose,
   }) : super(key: key);
 
   final Widget Function(BuildContext context, T viewmodel, S state) builder;
   final Function(T) setupViewModel;
+  final Function(T)? dispose;
 
   @override
   _BaseViewState<T, S> createState() => _BaseViewState<T, S>();
 }
 
-class _BaseViewState<T extends StateNotifier<S>, S>
-    extends State<BaseView<T, S>> {
+class _BaseViewState<T extends StateNotifier<S>, S> extends State<BaseView<T, S>> {
   late T _viewModel;
   late AutoDisposeStateNotifierProvider<T, S> _myNotifierProvider;
 
@@ -25,8 +26,7 @@ class _BaseViewState<T extends StateNotifier<S>, S>
   void initState() {
     _viewModel = diContainer<T>();
     widget.setupViewModel(_viewModel);
-    _myNotifierProvider = StateNotifierProvider.autoDispose<T, S>(
-        (AutoDisposeStateNotifierProviderRef ref) {
+    _myNotifierProvider = StateNotifierProvider.autoDispose<T, S>((AutoDisposeStateNotifierProviderRef ref) {
       return _viewModel;
     });
     super.initState();
@@ -46,5 +46,11 @@ class _BaseViewState<T extends StateNotifier<S>, S>
         return widget.builder(context, viewmodel, state);
       },
     );
+  }
+
+  @override
+  void dispose() {
+    widget.dispose?.call(_viewModel);
+    super.dispose();
   }
 }

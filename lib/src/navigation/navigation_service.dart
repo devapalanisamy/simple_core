@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:simple_core/src/navigation/i_navigation_service.dart';
+import 'package:core/src/navigation/i_navigation_service.dart';
 
 class NavigationService implements INavigationService {
   final Map<String, GlobalKey<NavigatorState>> navigatorMap;
