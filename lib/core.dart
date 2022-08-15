@@ -14,3 +14,5 @@ export 'package:core/src/localization/i_localization_service.dart';
 export 'package:core/src/dialog/i_dialog_service.dart';
 export 'package:core/src/dialog/dialog_service.dart';
 export 'package:core/src/connectivity/i_connectivity_service.dart';
+export 'package:core/src/firebase/fire_store/i_fire_store_service.dart';
+export 'package:core/src/firebase/firebase_auth/i_login_service.dart';
