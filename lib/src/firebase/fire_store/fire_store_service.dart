@@ -13,7 +13,9 @@ class FireStoreService extends IFireStoreService {
   ) async {
     try {
       final DocumentReference<Map<String, dynamic>> collectionReference =
-          FirebaseFirestore.instance.collection(documentName).doc(FirebaseAuth.instance.currentUser!.uid);
+          FirebaseFirestore.instance
+              .collection(documentName)
+              .doc(FirebaseAuth.instance.currentUser!.uid);
       await collectionReference.set(data);
       return true;
     } on Exception catch (e) {
@@ -28,12 +30,14 @@ class FireStoreService extends IFireStoreService {
     Map<String, dynamic> data,
   ) async {
     try {
-      final CollectionReference<Map<String, dynamic>> collectionReference = FirebaseFirestore.instance
-          .collection('users')
-          .doc(FirebaseAuth.instance.currentUser!.uid)
-          .collection(subCollectionName);
-      final DocumentReference<Object?> result = await collectionReference.add(data);
-      return result.id != null;
+      final CollectionReference<Map<String, dynamic>> collectionReference =
+          FirebaseFirestore.instance
+              .collection('users')
+              .doc(FirebaseAuth.instance.currentUser!.uid)
+              .collection(subCollectionName);
+      final DocumentReference<Object?> result =
+          await collectionReference.add(data);
+      return result.id.isNotEmpty;
     } on Exception catch (e) {
       _logger.e(e.toString());
       rethrow;
@@ -61,7 +65,8 @@ class FireStoreService extends IFireStoreService {
     try {
       final CollectionReference<Map<String, dynamic>> collectionReference =
           FirebaseFirestore.instance.collection(documentName);
-      final DocumentSnapshot<Object?> result = await collectionReference.doc(documentId).get();
+      final DocumentSnapshot<Object?> result =
+          await collectionReference.doc(documentId).get();
       return result.data() as Map<String, dynamic>? ?? <String, dynamic>{};
     } on Exception catch (e) {
       _logger.e(e.toString());
@@ -72,14 +77,17 @@ class FireStoreService extends IFireStoreService {
   @override
   Future<List<Map<String, dynamic>>> getDocuments(String documentName) async {
     try {
-      final CollectionReference<Map<String, dynamic>> collectionReference = FirebaseFirestore.instance
-          .collection('users')
-          .doc(FirebaseAuth.instance.currentUser!.uid)
-          .collection(documentName);
-      final QuerySnapshot<Map<String, dynamic>> result = await collectionReference.get();
+      final CollectionReference<Map<String, dynamic>> collectionReference =
+          FirebaseFirestore.instance
+              .collection('users')
+              .doc(FirebaseAuth.instance.currentUser!.uid)
+              .collection(documentName);
+      final QuerySnapshot<Map<String, dynamic>> result =
+          await collectionReference.get();
       return result.docs
           .map(
-            (QueryDocumentSnapshot<Map<String, dynamic>> documentSnapshot) => documentSnapshot.data(),
+            (QueryDocumentSnapshot<Map<String, dynamic>> documentSnapshot) =>
+                documentSnapshot.data(),
           )
           .toList();
     } on Exception catch (e) {
@@ -111,11 +119,13 @@ class FireStoreService extends IFireStoreService {
     String documentId,
   ) {
     try {
-      final CollectionReference<Map<String, dynamic>> collectionReference = FirebaseFirestore.instance
-          .collection('users')
-          .doc(FirebaseAuth.instance.currentUser!.uid)
-          .collection(documentName);
-      final Stream<QuerySnapshot<Map<String, dynamic>>> result = collectionReference.snapshots();
+      final CollectionReference<Map<String, dynamic>> collectionReference =
+          FirebaseFirestore.instance
+              .collection('users')
+              .doc(FirebaseAuth.instance.currentUser!.uid)
+              .collection(documentName);
+      final Stream<QuerySnapshot<Map<String, dynamic>>> result =
+          collectionReference.snapshots();
 
       return result;
     } on Exception catch (e) {
@@ -129,10 +139,11 @@ class FireStoreService extends IFireStoreService {
     String documentName,
   ) {
     try {
-      final CollectionReference<Map<String, dynamic>> collectionReference = FirebaseFirestore.instance
-          .collection('users')
-          .doc(FirebaseAuth.instance.currentUser!.uid)
-          .collection(documentName);
+      final CollectionReference<Map<String, dynamic>> collectionReference =
+          FirebaseFirestore.instance
+              .collection('users')
+              .doc(FirebaseAuth.instance.currentUser!.uid)
+              .collection(documentName);
       final Stream<QuerySnapshot<Map<String, dynamic>>> result =
           collectionReference.snapshots(includeMetadataChanges: true);
       return result;
